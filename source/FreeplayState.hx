@@ -220,8 +220,8 @@ class FreeplayState extends MusicBeatState
 
 		// adjusting the highscore song name to be compatible (changeSelection)
 		// would read original scores if we didn't change packages
-		var songHighscore = StringTools.replace(songs[curSelected].songName, " ", "-");
 		#if !switch
+		var songHighscore = StringTools.replace(songs[curSelected].songName, " ", "-");
 		intendedScore = Highscore.getScore(songHighscore, curDifficulty);
 		// lerpScore = 0;
 		#end

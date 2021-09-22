@@ -18,7 +18,6 @@ import sys.io.File;
 
 class LoadReplayState extends MusicBeatState
 {
-	var selector:FlxText;
 	var curSelected:Int = 0;
 
 	var songs:Array<FreeplayState.SongMetadata> = [];
@@ -127,7 +126,6 @@ class LoadReplayState extends MusicBeatState
 				num++;
 		}
 	}
-
 
 	override function update(elapsed:Float)
 	{
