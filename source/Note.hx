@@ -1,5 +1,7 @@
 package;
 
+import flixel.util.FlxColor;
+import flixel.text.FlxText;
 import flixel.FlxG;
 import flixel.FlxSprite;
 
@@ -7,7 +9,22 @@ using StringTools;
 
 class Note extends FlxSprite
 {
+	public static inline final NORMAL:Int = 0;
+	public static inline final WARNING:Int = 1;
+	public static inline final GLITCH_ON:Int = 2;
+	public static inline final GLITCH_OFF:Int = 3;
+
+	public static inline final GLITCH_EVENT_OFFSET:Int = 2;
+
+	public var isNormal:Bool;
+	public var isWarning:Bool;
+	public var isGlitchOn:Bool;
+	public var isGlitchOff:Bool;
+	public var isEvent:Bool;
+
+	public var noteType:Int = 0;
 	public var strumTime:Float = 0;
+	public var noteSpeed:Float = 0;
 
 	public var mustPress:Bool = false;
 	public var noteData:Int = 0;
@@ -24,7 +41,7 @@ class Note extends FlxSprite
 
 	public var rating:String = "shit";
 
-	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false)
+	public function new(strumTime:Float, noteData:Int, noteSpeed:Float, noteType:Int, isChartEditor:Bool, ?prevNote:Note, ?sustainNote:Bool = false)
 	{
 		super();
 
@@ -43,42 +60,64 @@ class Note extends FlxSprite
 			this.strumTime = 0;
 
 		this.noteData = noteData;
+		this.noteSpeed = noteSpeed;
 
-		frames = Paths.getSparrowAtlas('NOTE_assets');
+		isNormal = noteType == NORMAL;
+		isWarning = noteType == WARNING;
+		isGlitchOn = noteType == GLITCH_ON;
+		isGlitchOff = noteType == GLITCH_OFF;
 
-		animation.addByPrefix('greenScroll', 'green0');
-		animation.addByPrefix('redScroll', 'red0');
-		animation.addByPrefix('blueScroll', 'blue0');
-		animation.addByPrefix('purpleScroll', 'purple0');
+		isEvent = isGlitchOff || isGlitchOn;
 
-		animation.addByPrefix('purpleholdend', 'pruple end hold');
-		animation.addByPrefix('greenholdend', 'green hold end');
-		animation.addByPrefix('redholdend', 'red hold end');
-		animation.addByPrefix('blueholdend', 'blue hold end');
+		if(isNormal) {
+			frames = Paths.getSparrowAtlas('NOTE_assets');
 
-		animation.addByPrefix('purplehold', 'purple hold piece');
-		animation.addByPrefix('greenhold', 'green hold piece');
-		animation.addByPrefix('redhold', 'red hold piece');
-		animation.addByPrefix('bluehold', 'blue hold piece');
+			animation.addByPrefix('greenScroll', 'green0');
+			animation.addByPrefix('redScroll', 'red0');
+			animation.addByPrefix('blueScroll', 'blue0');
+			animation.addByPrefix('purpleScroll', 'purple0');
 
-		setGraphicSize(Std.int(width * 0.7));
-		updateHitbox();
-		antialiasing = true;
+			animation.addByPrefix('purpleholdend', 'pruple end hold');
+			animation.addByPrefix('greenholdend', 'green hold end');
+			animation.addByPrefix('redholdend', 'red hold end');
+			animation.addByPrefix('blueholdend', 'blue hold end');
 
-		switch (noteData)
-		{
-			case 0:
-				x += swagWidth * 0;
-				animation.play('purpleScroll');
-			case 1:
-				x += swagWidth * 1;
-				animation.play('blueScroll');
-			case 2:
-				x += swagWidth * 2;
-				animation.play('greenScroll');
-			case 3:
-				x += swagWidth * 3;
-				animation.play('redScroll');
+			animation.addByPrefix('purplehold', 'purple hold piece');
+			animation.addByPrefix('greenhold', 'green hold piece');
+			animation.addByPrefix('redhold', 'red hold piece');
+			animation.addByPrefix('bluehold', 'blue hold piece');
+			setGraphicSize(Std.int(width * 0.7));
+			updateHitbox();
+			antialiasing = true;
+		} else if(isWarning) {
+			loadGraphic(Paths.image('warningNote'));
+			setGraphicSize(Std.int(width * 0.7));
+			updateHitbox();
+			antialiasing = true;
+		} else if(isEvent) {
+			if(isChartEditor) {
+				makeGraphic(156, 156, FlxColor.BLACK);
+			} else {
+				makeGraphic(156, 156, FlxColor.TRANSPARENT);
+			}
+			setGraphicSize(Std.int(width * 0.7));
+			updateHitbox();
+		}
+
+		x += swagWidth * noteData;
+
+		if(!isSustainNote && isNormal) {
+			switch (noteData)
+			{
+				case 0:
+					animation.play('purpleScroll');
+				case 1:
+					animation.play('blueScroll');
+				case 2:
+					animation.play('greenScroll');
+				case 3:
+					animation.play('redScroll');
+			}
 		}
 
 		// trace(prevNote);
@@ -128,7 +167,7 @@ class Note extends FlxSprite
 				if(FlxG.save.data.scrollSpeed != 1)
 					prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.5 * FlxG.save.data.scrollSpeed;
 				else
-					prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.5 * PlayState.SONG.speed;
+					prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.5 * noteSpeed;
 				prevNote.updateHitbox();
 				// prevNote.setGraphicSize();
 			}

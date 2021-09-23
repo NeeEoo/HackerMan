@@ -16,22 +16,11 @@ class GameOverSubstate extends MusicBeatSubstate
 
 	public function new(x:Float, y:Float)
 	{
-		var daStage = PlayState.curStage;
-		var daBf:String = '';
-		switch (PlayState.SONG.player1)
-		{
-			case 'bf-pixel':
-				stageSuffix = '-pixel';
-				daBf = 'bf-pixel-dead';
-			default:
-				daBf = 'bf';
-		}
-
 		super();
 
 		Conductor.songPosition = 0;
 
-		bf = new Boyfriend(x, y, daBf);
+		bf = new Boyfriend(x, y, 'bf');
 		add(bf);
 
 		camFollow = new FlxObject(bf.getGraphicMidpoint().x, bf.getGraphicMidpoint().y, 1, 1);
@@ -46,7 +35,14 @@ class GameOverSubstate extends MusicBeatSubstate
 		FlxG.camera.target = null;
 
 		bf.playAnim('firstDeath');
+
+		if(PlayState.instance.shouldGlitchDeath) {
+			PlayState.glitchShader.amount.value = [0.15];
+			PlayState.glitchShader.speed.value = [0.1];
+		}
 	}
+
+	var glitchTimer:Float = 0;
 
 	override function update(elapsed:Float)
 	{
@@ -81,6 +77,11 @@ class GameOverSubstate extends MusicBeatSubstate
 		if (FlxG.sound.music.playing)
 		{
 			Conductor.songPosition = FlxG.sound.music.time;
+		}
+
+		if(PlayState.instance.shouldGlitchDeath) {
+			glitchTimer += FlxG.elapsed;
+			PlayState.glitchShader.uTime.value = [glitchTimer];
 		}
 	}
 
