@@ -1173,6 +1173,10 @@ class ChartingState extends MusicBeatState
 				connectedText.text = "GLITCH\nON\n";
 			} else if(note.isGlitchOff) {
 				connectedText.text = "GLITCH\nOFF\n";
+			} else if(note.isTrailOn) {
+				connectedText.text = "TRAIL\nON\n";
+			} else if(note.isTrailOff) {
+				connectedText.text = "TRAIL\nOFF\n";
 			}
 
 			connectedText.tracker = note;
@@ -1324,7 +1328,9 @@ class ChartingState extends MusicBeatState
 			noteType = Note.WARNING;
 		}
 
-		if(FlxG.keys.pressed.ALT) {
+		if(FlxG.keys.pressed.M) {
+			noteType += Note.TRAIL_EVENT_OFFSET;
+		} else if(FlxG.keys.pressed.ALT) {
 			noteType += Note.GLITCH_EVENT_OFFSET;
 		}
 

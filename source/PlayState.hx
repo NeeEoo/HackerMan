@@ -173,6 +173,8 @@ class PlayState extends MusicBeatState
 	var bottomBoppers:FlxSprite;
 	var santa:FlxSprite;
 
+	var trailEffect:FlxTrail;
+
 	var fc:Bool = true;
 
 	var talking:Bool = true;
@@ -639,6 +641,10 @@ class PlayState extends MusicBeatState
 		if (curStage == 'limo')
 			add(limo);
 
+		trailEffect = new FlxTrail(dad, null, 5, 7, 0.3, 0.001);
+		trailEffect.stopAdding = true;
+
+		add(trailEffect);
 		add(dad);
 		add(boyfriend);
 		if (loadRep)
@@ -1111,6 +1117,10 @@ class PlayState extends MusicBeatState
 				var swagNote:Note = new Note(daStrumTime, daNoteData, daNoteSpeed, daNoteType, false, oldNote);
 				swagNote.sustainLength = songNotes[2];
 				swagNote.scrollFactor.set(0, 0);
+
+				if(swagNote.isEvent) {
+					gottaHitNote = false;
+				}
 
 				var susLength:Float = swagNote.sustainLength;
 
@@ -1884,6 +1894,8 @@ class PlayState extends MusicBeatState
 					} else {
 						if(daNote.isGlitchOn) doSingGlitch = true;
 						else if(daNote.isGlitchOff) doSingGlitch = false;
+						else if(daNote.isTrailOn) trailEffect.stopAdding = false;
+						else if(daNote.isTrailOff) trailEffect.stopAdding = true;
 					}
 
 					daNote.active = false;

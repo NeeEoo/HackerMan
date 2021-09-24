@@ -13,13 +13,18 @@ class Note extends FlxSprite
 	public static inline final WARNING:Int = 1;
 	public static inline final GLITCH_ON:Int = 2;
 	public static inline final GLITCH_OFF:Int = 3;
+	public static inline final TRAIL_ON:Int = 4;
+	public static inline final TRAIL_OFF:Int = 5;
 
 	public static inline final GLITCH_EVENT_OFFSET:Int = 2;
+	public static inline final TRAIL_EVENT_OFFSET:Int = 4;
 
 	public var isNormal:Bool;
 	public var isWarning:Bool;
 	public var isGlitchOn:Bool;
 	public var isGlitchOff:Bool;
+	public var isTrailOn:Bool;
+	public var isTrailOff:Bool;
 	public var isEvent:Bool;
 
 	public var noteType:Int = 0;
@@ -64,10 +69,14 @@ class Note extends FlxSprite
 
 		isNormal = noteType == NORMAL;
 		isWarning = noteType == WARNING;
+
+		// Event Notes
 		isGlitchOn = noteType == GLITCH_ON;
 		isGlitchOff = noteType == GLITCH_OFF;
+		isTrailOn = noteType == TRAIL_ON;
+		isTrailOff = noteType == TRAIL_OFF;
 
-		isEvent = isGlitchOff || isGlitchOn;
+		isEvent = isGlitchOff || isGlitchOn || isTrailOn || isTrailOff;
 
 		if(isNormal) {
 			frames = Paths.getSparrowAtlas('NOTE_assets');
