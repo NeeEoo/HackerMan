@@ -367,55 +367,6 @@ class FPSCapOption extends Option
 	}
 }
 
-
-class ScrollSpeedOption extends Option
-{
-	public function new(desc:String)
-	{
-		super();
-		description = desc;
-		acceptValues = true;
-	}
-
-	public override function press():Bool
-	{
-		return false;
-	}
-
-	private override function updateDisplay():String
-	{
-		return "Scroll Speed";
-	}
-
-	override function right():Bool {
-		FlxG.save.data.scrollSpeed += 0.1;
-
-		if (FlxG.save.data.scrollSpeed < 1)
-			FlxG.save.data.scrollSpeed = 1;
-
-		if (FlxG.save.data.scrollSpeed > 4)
-			FlxG.save.data.scrollSpeed = 4;
-		return true;
-	}
-
-	override function getValue():String {
-		return "Current Scroll Speed: " + HelperFunctions.truncateFloat(FlxG.save.data.scrollSpeed,1);
-	}
-
-	override function left():Bool {
-		FlxG.save.data.scrollSpeed -= 0.1;
-
-		if (FlxG.save.data.scrollSpeed < 1)
-			FlxG.save.data.scrollSpeed = 1;
-
-		if (FlxG.save.data.scrollSpeed > 4)
-			FlxG.save.data.scrollSpeed = 4;
-
-		return true;
-	}
-}
-
-
 class RainbowFPSOption extends Option
 {
 	public function new(desc:String)
@@ -544,34 +495,6 @@ class WatermarkOption extends Option
 	}
 }
 
-class OffsetMenu extends Option
-{
-	public function new(desc:String)
-	{
-		super();
-		description = desc;
-	}
-
-	public override function press():Bool
-	{
-		trace("switch");
-		var poop:String = Highscore.formatSong("Tutorial", 1);
-
-		PlayState.SONG = Song.loadFromJson(poop, "Tutorial");
-		PlayState.isStoryMode = false;
-		PlayState.storyDifficulty = 0;
-		PlayState.storyWeek = 0;
-		PlayState.offsetTesting = true;
-		trace('CUR WEEK' + PlayState.storyWeek);
-		LoadingState.loadAndSwitchState(new PlayState());
-		return false;
-	}
-
-	private override function updateDisplay():String
-	{
-		return "Time your offset";
-	}
-}
 class BotPlay extends Option
 {
 	public function new(desc:String)
@@ -588,6 +511,7 @@ class BotPlay extends Option
 		return true;
 	}
 
-	private override function updateDisplay():String
+	private override function updateDisplay():String {
 		return "BotPlay " + (FlxG.save.data.botplay ? "on" : "off");
+	}
 }

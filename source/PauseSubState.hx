@@ -21,7 +21,7 @@ class PauseSubState extends MusicBeatSubstate
 {
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
-	var menuItems:Array<String> = ['Resume', 'Restart Song', 'Exit to menu'];
+	var menuItems:Array<String> = ['Resume', 'Restart Song', 'Restart With Dialogue', 'Exit to menu'];
 	var curSelected:Int = 0;
 
 	var pauseMusic:FlxSound;
@@ -32,6 +32,10 @@ class PauseSubState extends MusicBeatSubstate
 	public function new(x:Float, y:Float)
 	{
 		super();
+
+		if(!PlayState.isStoryMode) {
+			menuItems = ['Resume', 'Restart Song', 'Exit to menu'];
+		}
 
 		pauseMusic = new FlxSound().loadEmbedded(Paths.music('breakfast'), true, true);
 		pauseMusic.volume = 0;
@@ -104,7 +108,7 @@ class PauseSubState extends MusicBeatSubstate
 		var rightP = controls.RIGHT_P;
 		var accepted = controls.ACCEPT;
 		var oldOffset:Float = 0;
-		var songPath = 'assets/data/' + PlayState.SONG.song.toLowerCase() + '/';
+		var songPath = 'assets/data/' + StringTools.replace(PlayState.SONG.song.toLowerCase()," ", "-") + '/';
 
 		if (upP)
 		{
@@ -128,7 +132,11 @@ class PauseSubState extends MusicBeatSubstate
 				{
 					grpMenuShit.clear();
 
-					menuItems = ['Restart Song', 'Exit to menu'];
+					if(PlayState.isStoryMode) {
+						menuItems = ['Restart Song', 'Restart With Dialogue', 'Exit to menu'];
+					} else {
+						menuItems = ['Restart Song', 'Exit to menu'];
+					}
 
 					for (i in 0...menuItems.length)
 					{
@@ -153,7 +161,11 @@ class PauseSubState extends MusicBeatSubstate
 				{
 					grpMenuShit.clear();
 
-					menuItems = ['Restart Song', 'Exit to menu'];
+					if(PlayState.isStoryMode) {
+						menuItems = ['Restart Song', 'Restart With Dialogue', 'Exit to menu'];
+					} else {
+						menuItems = ['Restart Song', 'Exit to menu'];
+					}
 
 					for (i in 0...menuItems.length)
 					{
@@ -181,11 +193,13 @@ class PauseSubState extends MusicBeatSubstate
 					close();
 				case "Restart Song":
 					FlxG.resetState();
+				case "Restart With Dialogue":
+					PlayState.showedDialogue = false;
+					FlxG.resetState();
 				case "Exit to menu":
 					if(PlayState.loadRep)
 					{
 						FlxG.save.data.botplay = false;
-						FlxG.save.data.scrollSpeed = 1;
 						FlxG.save.data.downscroll = false;
 					}
 					PlayState.loadRep = false;
@@ -201,12 +215,6 @@ class PauseSubState extends MusicBeatSubstate
 
 					FlxG.switchState(new MainMenuState());
 			}
-		}
-
-		if (FlxG.keys.justPressed.J)
-		{
-			// for reference later!
-			// PlayerSettings.player1.controls.replaceBinding(Control.LEFT, Keys, FlxKey.J, null);
 		}
 	}
 

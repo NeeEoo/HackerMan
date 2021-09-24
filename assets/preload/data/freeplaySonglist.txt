@@ -1,3 +1,3 @@
-Hacker Man:gf:1
-Zeros:gf:1
-Tutorial:gf:0
+Ones:gf:0
+Zeros:gf:0
+Hacker Man:gf:0

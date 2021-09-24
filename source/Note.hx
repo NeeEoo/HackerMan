@@ -15,6 +15,7 @@ class Note extends FlxSprite
 	public static inline final GLITCH_OFF:Int = 3;
 	public static inline final TRAIL_ON:Int = 4;
 	public static inline final TRAIL_OFF:Int = 5;
+	public static inline final FORCE_GLITCH:Int = 6;
 
 	public static inline final GLITCH_EVENT_OFFSET:Int = 2;
 	public static inline final TRAIL_EVENT_OFFSET:Int = 4;
@@ -25,12 +26,14 @@ class Note extends FlxSprite
 	public var isGlitchOff:Bool;
 	public var isTrailOn:Bool;
 	public var isTrailOff:Bool;
+	public var isForceGlitch:Bool;
 	public var isEvent:Bool;
 
 	public var noteType:Int = 0;
 	public var strumTime:Float = 0;
 	public var noteSpeed:Float = 0;
 
+	public var bfSideNote:Bool = false;
 	public var mustPress:Bool = false;
 	public var noteData:Int = 0;
 	public var rawNoteData:Int = 0;
@@ -75,8 +78,9 @@ class Note extends FlxSprite
 		isGlitchOff = noteType == GLITCH_OFF;
 		isTrailOn = noteType == TRAIL_ON;
 		isTrailOff = noteType == TRAIL_OFF;
+		isForceGlitch = noteType == FORCE_GLITCH;
 
-		isEvent = isGlitchOff || isGlitchOn || isTrailOn || isTrailOff;
+		isEvent = isGlitchOff || isGlitchOn || isTrailOn || isTrailOff || isForceGlitch;
 
 		if(isNormal) {
 			frames = Paths.getSparrowAtlas('NOTE_assets');
@@ -137,7 +141,7 @@ class Note extends FlxSprite
 		if (sustainNote && FlxG.save.data.downscroll)
 			flipY = true;
 
-		if (isSustainNote && prevNote != null)
+		if (isSustainNote && prevNote != null && isNormal)
 		{
 			alpha = 0.6;
 
@@ -173,10 +177,7 @@ class Note extends FlxSprite
 						prevNote.animation.play('redhold');
 				}
 
-				if(FlxG.save.data.scrollSpeed != 1)
-					prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.5 * FlxG.save.data.scrollSpeed;
-				else
-					prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.5 * noteSpeed;
+				prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.5 * noteSpeed;
 				prevNote.updateHitbox();
 				// prevNote.setGraphicSize();
 			}

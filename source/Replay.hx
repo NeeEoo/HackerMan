@@ -18,7 +18,6 @@ typedef ReplayJSON =
 	public var songName:String;
 	public var songDiff:Int;
 	public var songNotes:Array<Float>;
-	public var noteSpeed:Float;
 	public var isDownscroll:Bool;
 }
 
@@ -34,7 +33,6 @@ class Replay
 		replay = {
 			songName: "Tutorial",
 			songDiff: 1,
-			noteSpeed: 1.5,
 			isDownscroll: false,
 			songNotes: [],
 			replayGameVer: version,
@@ -59,7 +57,6 @@ class Replay
 		var json = {
 			"songName": PlayState.SONG.song.toLowerCase(),
 			"songDiff": PlayState.storyDifficulty,
-			"noteSpeed": (FlxG.save.data.scrollSpeed > 1 ? FlxG.save.data.scrollSpeed : PlayState.SONG.speed),
 			"isDownscroll": FlxG.save.data.downscroll,
 			"songNotes": notearray,
 			"timestamp": Date.now(),

@@ -1,5 +1,6 @@
 package;
 
+import openfl.text.Font;
 import flixel.FlxG;
 import flixel.graphics.frames.FlxAtlasFrames;
 import openfl.utils.AssetType;
@@ -23,7 +24,7 @@ class Paths
 
 		if (currentLevel != null)
 		{
-			var levelPath = getLibraryPathForce(file, currentLevel);
+			var levelPath = getLibraryPathForce(file, "hacker");
 			if (OpenFlAssets.exists(levelPath, type))
 				return levelPath;
 
@@ -115,6 +116,30 @@ class Paths
 	inline static public function font(key:String)
 	{
 		return 'assets/fonts/$key';
+	}
+
+	inline static public function fontLib(key:String, ?library:String)
+	{
+		return getPath('fonts/$key', FONT, library);
+	}
+
+	static public function getAssetFont(filename:String) {
+		var fontFile = Paths.fontLib(filename);
+		var font = OpenFlAssets.getFont(fontFile);
+		var registeredFonts = Font.enumerateFonts();
+
+		font.fontName = fontFile;
+
+		if(!registeredFonts.contains(font)) {
+			Font.registerFont(font);
+		}
+
+		return font.fontName;
+	}
+
+	inline static public function exists(key:String, type:AssetType = TEXT)
+	{
+		return OpenFlAssets.exists(key, type);
 	}
 
 	inline static public function getSparrowAtlas(key:String, ?library:String)

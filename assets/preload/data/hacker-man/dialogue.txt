@@ -1,0 +1,39 @@
+>flip<
+>textdelay<0.1
+>toggletextfx<
+>voice<cutscene three hacker line one
+:man:alright kid, I'm done. ‌‌‌‌now scram.
+
+>bgm<Siren
+
+>textdelay<0.05
+>voice<cutscene three hacker line two
+:man:YOU ‌‌LITTLE ‌‌SHIT!
+
+>stopvoice<
+>textdelay<0.04
+>flip<
+>toggletextfx<
+:bf:?
+
+>textdelay<0.1
+>flip<
+>voice<cutscene three hacker line three
+>toggletextfx<
+:man:So‌‌‌ you ‌‌‌‌didn't‌ call the cops?
+
+>stopvoice<
+>textdelay<0.04
+>flip<
+>toggletextfx<
+:bf:nah.
+
+>fadeoutbgm<
+
+>textdelay<0.09
+>flip<
+>voice<cutscene three hacker line four
+>toggletextfx<
+:man:I knew they'd hear us.
+
+>stopvoice<

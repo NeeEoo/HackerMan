@@ -22,7 +22,7 @@ class FreeplayState extends MusicBeatState
 	var songs:Array<SongMetadata> = [];
 
 	var curSelected:Int = 0;
-	var curDifficulty:Int = 1;
+	var curDifficulty:Int = 2;
 
 	var scoreText:FlxText;
 	var diffText:FlxText;
@@ -147,17 +147,17 @@ class FreeplayState extends MusicBeatState
 			changeSelection(1);
 		}
 
-		if (controls.LEFT_P)
-			changeDiff(-1);
-		if (controls.RIGHT_P)
-			changeDiff(1);
+		//if (controls.LEFT_P)
+		//	changeDiff(-1);
+		//if (controls.RIGHT_P)
+		//	changeDiff(1);
 
 		if (controls.BACK)
 		{
 			FlxG.switchState(new MainMenuState());
 		}
 
-		if (accepted)
+		if (accepted || FlxG.keys.justPressed.SEVEN)
 		{
 			// pre lowercasing the song name (update)
 			var songLowercase = StringTools.replace(songs[curSelected].songName, " ", "-").toLowerCase();
@@ -167,16 +167,21 @@ class FreeplayState extends MusicBeatState
 
 			trace(songLowercase);
 
-			var poop:String = Highscore.formatSong(songHighscore, curDifficulty);
+			var poop:String = Highscore.formatSong(songHighscore, 2);
 
 			trace(poop);
 
 			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 			PlayState.isStoryMode = false;
-			PlayState.storyDifficulty = curDifficulty;
+			PlayState.storyDifficulty = 2;
 			PlayState.storyWeek = songs[curSelected].week;
 			trace('CUR WEEK' + PlayState.storyWeek);
-			LoadingState.loadAndSwitchState(new PlayState());
+			if(accepted)
+				LoadingState.loadAndSwitchState(new PlayState());
+			else {
+				Conductor.songPosition = 0;
+				LoadingState.loadAndSwitchState(new ChartingState(), true);
+			}
 		}
 	}
 

@@ -1,0 +1,41 @@
+>stopvoice<
+>flip<
+>textdelay<0.14
+>toggletextfx<
+>voice<cutscene one hacker line one
+:man:okay so a 1.. ‌‌‌‌‌‌‌‌‌a 7.. ‌‌‌‌‌‌‌‌‌and a 9.. ‌‌‌‌and that sho-
+
+>sample<Buzzer
+>textdelay<0.08
+>voice<cutscene one hacker line two
+:man:sigh‌‌‌‌‌‌‌‌‌‌‌‌‌‌‌‌ alright I have time to try one more-
+
+>stopvoice<
+>textdelay<0.04
+>flip<
+>toggletextfx<
+:bf:Yo!
+
+>flip<
+>toggletextfx<
+>textdelay<0.08
+>voice<cutscene one hacker line three
+:man:who the f-‌‌‌‌ oh.
+
+>voice<cutscene one hacker line four
+>textdelay<0.07
+:man:listen kid,‌‌‌‌ not now. ‌‌‌‌‌‌I know I owe you one but you need to be quiet.
+
+>stopvoice<
+>toggletextfx<
+>textdelay<0.04
+>flip<
+:bf:Now!
+
+>flip<
+>toggletextfx<
+>textdelay<0.08
+>voice<cutscene one hacker line five
+:man:sigh‌‌‌‌‌‌‌‌ ‌‌‌‌‌fine.‌‌‌‌‌‌‌ -Ya little shit.
+
+>stopvoice<

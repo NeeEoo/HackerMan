@@ -1,0 +1,19 @@
+>flip<
+>textdelay<0.10
+>toggletextfx<
+>voice<cutscene two hacker line one
+:man:there. Happy?
+
+>stopvoice<
+>textdelay<0.04
+>flip<
+>toggletextfx<
+:bf:...
+
+>flip<
+>textdelay<0.08
+>toggletextfx<
+>voice<cutscene two hacker line two
+:man:fine..
+
+>stopvoice<
