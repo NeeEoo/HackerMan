@@ -86,7 +86,7 @@ class TitleState extends MusicBeatState
 		#elseif CHARTING
 		FlxG.switchState(new ChartingState());
 		#else
-		new FlxTimer().start(1, function(tmr:FlxTimer)
+		new FlxTimer().start(#if debug 0.1 #else 1 #end, function(tmr:FlxTimer)
 		{
 			startIntro();
 		});
@@ -198,7 +198,7 @@ class TitleState extends MusicBeatState
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
 
 			Conductor.changeBPM(102);
-			
+
 			initialized = true;
 		}
 
@@ -267,7 +267,7 @@ class TitleState extends MusicBeatState
 
 			transitioning = true;
 
-			new FlxTimer().start(2, function(tmr:FlxTimer)
+			new FlxTimer().start(#if debug 0.1 #else 2 #end, function(tmr:FlxTimer)
 			{
 				FlxG.switchState(new FlashingWarningState());
 			});
@@ -363,42 +363,6 @@ class TitleState extends MusicBeatState
 				addMoreText('Man');
 			case 16:
 				skipIntro();
-			/*case 1:
-				createCoolText(['ninjamuffin99', 'phantomArcade', 'kawaisprite', 'evilsk8er']);
-			case 3:
-				addMoreText('present');
-			case 4:
-				deleteCoolText();
-			case 5:
-				if (Main.watermarks)
-					createCoolText(['Kade Engine', 'by']);
-				else
-					createCoolText(['In Partnership', 'with']);
-			case 7:
-				if (Main.watermarks)
-					addMoreText('KadeDeveloper');
-				else
-				{
-					addMoreText('Newgrounds');
-					ngSpr.visible = true;
-				}
-			case 8:
-				deleteCoolText();
-				ngSpr.visible = false;
-			case 9:
-				createCoolText([curWacky[0]]);
-			case 11:
-				addMoreText(curWacky[1]);
-			case 12:
-				deleteCoolText();
-			case 13:
-				addMoreText('Friday');
-			case 14:
-				addMoreText('Night');
-			case 15:
-				addMoreText('Funkin');
-			case 16:
-				skipIntro();*/
 		}
 	}
 

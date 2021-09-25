@@ -31,7 +31,7 @@ class Replay
 	{
 		this.path = path;
 		replay = {
-			songName: "Tutorial",
+			songName: "Ones",
 			songDiff: 1,
 			isDownscroll: false,
 			songNotes: [],

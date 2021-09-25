@@ -80,6 +80,25 @@ class Character extends FlxSprite
 
 				playAnim('idle');
 
+			case 'hacker':
+				tex = Paths.getSparrowAtlas('characters/hacker', 'hacker');
+				frames = tex;
+				animation.addByPrefix('idle', 'idle', 24, false);
+				animation.addByPrefix('singUP', 'up', 24, false);
+				animation.addByPrefix('singRIGHT', 'right', 24, false);
+				animation.addByPrefix('singDOWN', 'down', 24, false);
+				animation.addByPrefix('singLEFT', 'left', 24, false);
+				animation.addByPrefix('shoot', 'shoot', 24, false);
+
+				addOffset('idle');
+				addOffset("singUP", 38, 13);
+				addOffset("singRIGHT", -12, -31);
+				addOffset("singLEFT", 130, 50);
+				addOffset("singDOWN", -10, -11);
+				addOffset("shoot", -4, 76);
+
+				playAnim('idle');
+
 			case 'bf':
 				var tex = Paths.getSparrowAtlas('characters/BOYFRIEND', 'shared');
 				frames = tex;
@@ -100,6 +119,7 @@ class Character extends FlxSprite
 				animation.addByPrefix('deathConfirm', "BF Dead confirm", 24, false);
 
 				animation.addByPrefix('scared', 'BF idle shaking', 24);
+				animation.addByPrefix('dodge', 'boyfriend dodge', 24, false);
 
 				addOffset('idle', -5);
 				addOffset("singUP", -29, 27);
@@ -115,6 +135,7 @@ class Character extends FlxSprite
 				addOffset('deathLoop', 37, 5);
 				addOffset('deathConfirm', 37, 69);
 				addOffset('scared', -4);
+				addOffset('dodge', 9, -12);
 
 				playAnim('idle');
 
@@ -203,8 +224,24 @@ class Character extends FlxSprite
 		}
 	}
 
+	public function noInteruptAnim(animName:String, force:Bool = false) {
+		if(force) {
+			animationPlaying = false;
+		}
+		playAnim(animName, true);
+		animationPlaying = true;
+
+		animation.finishCallback = function(anim:String) {
+			if(anim == animName) animationPlaying = false;
+		}
+	}
+
+	public var animationPlaying:Bool = false;
+
 	public function playAnim(animName:String, force:Bool = false, reversed:Bool = false, frame:Int = 0):Void
 	{
+		if(animationPlaying) return;
+
 		animation.play(animName, force, reversed, frame);
 
 		var daOffset = animOffsets.get(animName);

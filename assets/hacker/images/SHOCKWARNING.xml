@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker https://www.codeandweb.com/texturepacker -->
+<!-- $TexturePacker:SmartUpdate:8703103d566180361945e80a9d0e288a:4ab37be8471fa29be7f37365b76862b6:4979b71f36be92e885daef3bf52eb0b7$ -->
+<TextureAtlas imagePath="SHOCKWARNING.png" width="1844" height="1741">
+    <SubTexture name="frame_00001" x="1" y="908" width="920" height="832" frameX="0" frameY="0" frameWidth="920" frameHeight="905"/>
+    <SubTexture name="frame_00002" x="923" y="1" width="920" height="838" frameX="0" frameY="0" frameWidth="920" frameHeight="905"/>
+    <SubTexture name="frame_00003" x="1" y="1" width="920" height="905" frameX="0" frameY="0" frameWidth="920" frameHeight="905"/>
+    <SubTexture name="frame_00004" x="923" y="841" width="920" height="838" frameX="0" frameY="0" frameWidth="920" frameHeight="905"/>
+</TextureAtlas>

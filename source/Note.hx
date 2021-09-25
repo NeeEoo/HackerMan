@@ -103,9 +103,16 @@ class Note extends FlxSprite
 			updateHitbox();
 			antialiasing = true;
 		} else if(isWarning) {
-			loadGraphic(Paths.image('warningNote'));
-			setGraphicSize(Std.int(width * 0.7));
+			frames = Paths.getSparrowAtlas('SHOCKWARNING');
+
+			animation.addByPrefix('note', 'frame', 24);
+			animation.play('note');
+
+			setGraphicSize(147);
 			updateHitbox();
+			if(!isChartEditor) {
+				offset.x += 17;
+			}
 			antialiasing = true;
 		} else if(isEvent) {
 			if(isChartEditor) {

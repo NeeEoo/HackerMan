@@ -8,14 +8,11 @@ import flixel.FlxSprite;
 
 class FlashingWarningState extends FlxState
 {
-	override public function create():Void 
+	override public function create():Void
 	{
 		super.create();
 
         persistentUpdate = true;
-
-		//var warning:FlxSprite = new FlxSprite().loadGraphic("assets/images/SEZ_WARN.png", false, 1280, 720);
-		//add(warning);
 
         var txt:FlxText = new FlxText(0, 0, FlxG.width,
 			"This mod contains flashing lights."
